@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter_application_9/data/add_category_response_model.dart';
 import 'package:http/http.dart' as http;
 
 class CategoriesModel {
@@ -41,6 +42,22 @@ class CategoriesModel {
 }
 
 class CategoryRemoteDatasource {
+  Future<AddCategoryResponseModel> updateCategories(
+      int id, AddCategoryResponseModel data) async {
+    final response = await http.put(
+      Uri.parse('https://api.escuelajs.co/api/v1/categories/$id'),
+      body: data.toJson(),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
+    if (response.statusCode == 200) {
+      return AddCategoryResponseModel.fromJson(response.body);
+    } else {
+      throw Exception('Failed to update category');
+    }
+  }
+
   Future<List<CategoriesModel>> getCategories() async {
     final response = await http.get(
       Uri.parse('https://api.escuelajs.co/api/v1/categories'),
