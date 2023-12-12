@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_9/data/categories_model.dart';
 import 'package:flutter_application_9/pages/edit_category_page.dart';
+import 'package:flutter_application_9/pages/home_page.dart';
 
 class DetailCategoryPage extends StatefulWidget {
   final CategoriesModel category;
@@ -41,7 +42,34 @@ class _DetailCategoryPageState extends State<DetailCategoryPage> {
           ),
           const SizedBox(height: 16),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: const Text('Confirmation'),
+                      content:
+                          const Text('Are you sure want to delete this task?'),
+                      actions: [
+                        TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text('No')),
+                        TextButton(
+                            onPressed: () async {
+                              await CategoryRemoteDatasource()
+                                  .deleteCategory(widget.category.id);
+                              Navigator.pushReplacement(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return const HomePage();
+                              }));
+                            },
+                            child: const Text('Yes')),
+                      ],
+                    );
+                  });
+            },
             child: const Text('Delete'),
           ),
         ],

@@ -12,19 +12,19 @@ class AddCategoryResponseModel {
     required this.id,
   });
 
-  factory AddCategoryResponseModel.fromRawJson(String str) =>
-      AddCategoryResponseModel.fromJson(json.decode(str));
+  factory AddCategoryResponseModel.fromJson(String str) =>
+      AddCategoryResponseModel.fromMap(json.decode(str));
 
-  String toRawJson() => json.encode(toJson());
+  String toJson() => json.encode(toMap());
 
-  factory AddCategoryResponseModel.fromJson(Map<String, dynamic> json) =>
+  factory AddCategoryResponseModel.fromMap(Map<String, dynamic> json) =>
       AddCategoryResponseModel(
         name: json["name"],
         image: json["image"],
         id: json["id"],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toMap() => {
         "name": name,
         "image": image,
         "id": id,

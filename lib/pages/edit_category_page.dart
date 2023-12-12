@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_9/data/add_category_request_model.dart';
 import 'package:flutter_application_9/data/categories_model.dart';
+import 'package:flutter_application_9/pages/home_page.dart';
 
 class EditCategoryPage extends StatefulWidget {
   final CategoriesModel category;
@@ -50,7 +52,23 @@ class _EditCategoryPageState extends State<EditCategoryPage> {
             ),
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () async {
+              final newModel = AddCategoryRequestModel(
+                name: namecontroller.text,
+                image: imagecontroller.text,
+              );
+              await CategoryRemoteDatasource()
+                  .updateCategories(widget.category.id, newModel);
+              // ignore: use_build_context_synchronously
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const HomePage();
+                  },
+                ),
+              );
+            },
             child: const Text('Edit'),
           ),
         ],

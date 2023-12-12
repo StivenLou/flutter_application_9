@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_9/data/add_category_request_model.dart';
+import 'package:flutter_application_9/data/categories_model.dart';
+import 'package:flutter_application_9/pages/home_page.dart';
 
 class AddCategoryPage extends StatefulWidget {
   const AddCategoryPage({super.key});
@@ -40,7 +43,23 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
             ),
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () async {
+              final model = AddCategoryRequestModel(
+                name: namecontroller.text,
+                image: imagecontroller.text,
+              );
+              final response =
+                  await CategoryRemoteDatasource().addCategory(model);
+              // ignore: use_build_context_synchronously
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const HomePage();
+                  },
+                ),
+              );
+            },
             child: const Text('Add'),
           ),
         ],

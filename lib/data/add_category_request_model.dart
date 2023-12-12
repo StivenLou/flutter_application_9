@@ -10,18 +10,18 @@ class AddCategoryRequestModel {
     required this.image,
   });
 
-  factory AddCategoryRequestModel.fromRawJson(String str) =>
-      AddCategoryRequestModel.fromJson(json.decode(str));
+  factory AddCategoryRequestModel.fromJson(String str) =>
+      AddCategoryRequestModel.fromMap(json.decode(str));
 
-  String toRawJson() => json.encode(toJson());
+  String toJson() => json.encode(toMap());
 
-  factory AddCategoryRequestModel.fromJson(Map<String, dynamic> json) =>
+  factory AddCategoryRequestModel.fromMap(Map<String, dynamic> json) =>
       AddCategoryRequestModel(
         name: json["name"],
         image: json["image"],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toMap() => {
         "name": name,
         "image": image,
       };
